@@ -54,22 +54,19 @@
         }
 
         ////Kontrollerar om include finns i förfrågan
-        if(isset($_GET["include"])){
-            $includeId = $_GET["include"];
-            
-            if($includeId !== 0){
-                //Loopar genom ägaren för att lägga till apartment namn 
-                foreach($apartments as $apartment){
-                    if($apartment["id"] == $tenantByid["apartment"]){
-                        foreach($owners as $owner){
-                            if($apartment["id"] == $owner["id"]){
-                                $tenantByid["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                            }
+        // if(isset($_GET["include"])){
+            // $includeId = $_GET["include"];
+if($_GET["include"] !== false){
+            //Loopar genom ägaren för att lägga till apartment namn 
+            foreach($apartments as $apartment){
+                if($apartment["id"] == $tenantByid["apartment"]){
+                    foreach($owners as $owner){
+                        if($apartment["id"] == $owner["id"]){
+                            $tenantByid["apartment"] = "{ownsBy : ".$owner["name"]."}";
                         }
                     }
                 }
             }
-            
             sendJson($tenantByid);
         }
 
