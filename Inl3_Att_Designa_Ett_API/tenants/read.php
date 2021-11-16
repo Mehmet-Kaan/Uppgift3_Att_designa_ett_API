@@ -57,7 +57,7 @@
         if(isset($_GET["include"])){
             $includeId = $_GET["include"];
             
-            if($includeId !== false){
+            if($includeId !== 0){
                 //Loopar genom ägaren för att lägga till apartment namn 
                 foreach($apartments as $apartment){
                     if($apartment["id"] == $tenantByid["apartment"]){
