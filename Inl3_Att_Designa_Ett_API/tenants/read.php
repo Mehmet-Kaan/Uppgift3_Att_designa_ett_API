@@ -59,8 +59,12 @@
 
             //Loopar genom ägaren för att lägga till apartment namn 
             foreach($aparments as $aparment){
-                if($aparment["owner"] == $hyresgast["aparment"]){
-                    $hyresgast["aparment"] = $aparment["owner"];
+                if($aparment["id"] == $hyresgast["aparment"]){
+                    foreach($owners as $owner){
+                        if($aparment["id"] == $owner["id"]){
+                            $hyresgast["aparment"] = $owner["name"];
+                        }
+                    }
                     sendJson($hyresgast);
                 }
             }
