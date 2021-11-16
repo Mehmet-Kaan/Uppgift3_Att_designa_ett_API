@@ -117,7 +117,7 @@
             $includeId = $_GET["include"];
 
             $hyresgasterByIdsWithOwnersName = [];
-t
+
             foreach($hyresgasterByIds as $hyresgastById){
                 foreach($owners as $owner){
                     if($hyresgastById["owner"] == $owner["id"]){
