@@ -178,14 +178,16 @@
         $slicedTenants = array_slice($tenants, 0, $limit);
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
-        if(isset($_GET["include"]) && $_GET["include"] == true){
-            foreach($slicedTenants as $tenant){
-                foreach($apartments as $apartment){
-                    if($apartment["id"] == $tenant["apartment"]){
-                        foreach($owners as $owner){
-                            if($owner["id"] == $apartment["id"]){
-                                $tenant["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                                $slicedTenantsWithOwnerOfApartmentsName[] = $tenant;
+        if(isset($_GET["include"])){
+            if($_GET["include"] === true){
+                foreach($slicedTenants as $tenant){
+                    foreach($apartments as $apartment){
+                        if($apartment["id"] == $tenant["apartment"]){
+                            foreach($owners as $owner){
+                                if($owner["id"] == $apartment["id"]){
+                                    $tenant["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                                    $slicedTenantsWithOwnerOfApartmentsName[] = $tenant;
+                                }
                             }
                         }
                     }
