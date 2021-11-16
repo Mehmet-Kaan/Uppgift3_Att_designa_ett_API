@@ -179,7 +179,7 @@
         $slicedTenants = array_slice($tenants, 0, $limit);
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
-        if(isset($_GET["include"]) && $_GET["include"] !== false){
+        if(isset($_GET["include"]) && $_GET["include"] === true){
             // if($_GET["include"] !== false){
                 foreach($slicedTenants as $tenant){
                     foreach($apartments as $apartment){
