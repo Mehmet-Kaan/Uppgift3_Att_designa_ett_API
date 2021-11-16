@@ -16,5 +16,7 @@ function loadJson($filename) {
 function saveJson($filename, $data) {
     $json = json_encode($data, JSON_PRETTY_PRINT);
     file_put_contents($filename, $json);
+    
+    return true;
 }
 ?>
