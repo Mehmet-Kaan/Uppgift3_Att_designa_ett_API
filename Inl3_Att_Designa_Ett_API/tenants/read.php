@@ -176,6 +176,27 @@
         $limit = $_GET["limit"];
 
         $slicedTenants = array_slice($tenants, 0, $limit);
+        $slicedTenantsWithOwnerOfApartmentsName = [];
+        
+        if(isset($_GET["include"])){
+            foreach($slicedTenants as $tenant){
+                foreach($apartments as $apartment){
+                    if($apartment["id"] == $tenant["apartment"]){
+                        foreach($owners as $owner){
+                            if($owner["id"] == $apartment["id"]){
+                                $tenant["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                                $slicedTenantsWithOwnerOfApartmentsName[] = $tenant;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if(!empty($slicedTenantsWithOwnerOfApartmentsName)){
+            sendJson($slicedTenantsWithOwnerOfApartmentsName);
+        }
+
         sendJson($slicedTenants);
     }
 
