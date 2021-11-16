@@ -180,7 +180,7 @@
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
         if(isset($_GET["include"])){
-            if($_GET["include"] !== false || $_GET["include"] === 0){
+            if($_GET["include"] !== false || $_GET["include"] !== 0){
                 foreach($slicedTenants as $tenant){
                     foreach($apartments as $apartment){
                         if($apartment["id"] == $tenant["apartment"]){
