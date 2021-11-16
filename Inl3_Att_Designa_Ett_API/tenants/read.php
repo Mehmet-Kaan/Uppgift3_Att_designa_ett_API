@@ -19,7 +19,7 @@
     $entiteter = loadJson("../database.json");
 
     //Alla hyresgäster
-    $hyresgaster = $entiteter["hyresgaster"];
+    $tenants = $entiteter["tenants"];
 
     //Alla lägenheter
     $apartments = $entiteter["apartments"];
@@ -31,17 +31,17 @@
     if(isset($_GET["id"])){
         $id = $_GET["id"];
         $found = false;
-        $hyresgast;
+        $tenantByid;
 
         //Loopar genom arrayen av hyresgäster och hittar den som samma id som har förfrågat
-        foreach($hyresgaster as $gast){
-            if($gast["id"] == $id){
+        foreach($tenants as $tenant){
+            if($tenant["id"] == $id){
                 $found = true;
-                $hyresgast = $gast;
+                $tenantByid = $tenant;
             }
         }
 
-        //Om id:n inte inte finns, skickar error och http-koden 400
+        //Om id:n inte finns i tenants, skickar error och http-koden 400
         if($found == false){
             sendJson(
                 [
@@ -59,36 +59,36 @@
 
             //Loopar genom ägaren för att lägga till apartment namn 
             foreach($apartments as $apartment){
-                if($apartment["id"] == $hyresgast["apartment"]){
+                if($apartment["id"] == $tenantByid["apartment"]){
                     foreach($owners as $owner){
                         if($apartment["id"] == $owner["id"]){
-                            $hyresgast["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                            $tenantByid["apartment"] = "{ownsBy : ".$owner["name"]."}";
                         }
                     }
                 }
             }
-            sendJson($hyresgast);
+            sendJson($tenantByid);
         }
 
-        sendJson($hyresgast);
+        sendJson($tenantByid);
     }
 
     //Kontollerar om förfrågan innehåller flera ids
     if(isset($_GET["ids"])){
         $ids = explode(",",$_GET["ids"]);
-        $hyresgasterByIds = [];
+        $tenantsByIds = [];
 
         $found = false;
 
         //Loopar genom alla hyresgäster för att hitta de som har samma id som givna
-        foreach($hyresgaster as $gast){
-            if(in_array($gast["id"], $ids)){
-                $hyresgasterByIds[] = $gast;
+        foreach($tenants as $tenant){
+            if(in_array($tenant["id"], $ids)){
+                $tenantsByIds[] = $tenant;
                 $found = true;
             }
         }
 
-        //Om ingen av ids finns, skickas en error med http-koden 400
+        //Om ingen av ids finns i tenants, skickas en error med http-koden 400
         if($found == false){
             sendJson(
                 [
@@ -103,22 +103,22 @@
         //kontrollerar om förfrågan innehåller "limit"
         if(isset($_GET["limit"])){ 
             $limit = $_GET["limit"];
-            $hyresgasterByIds = array_slice($hyresgasterByIds, 0, $limit);
+            $tenantsByIds = array_slice($tenantsByIds, 0, $limit);
         }
 
-        //Växlar alla ids till owners för valda hyresgäster by given ids
+        //Byter alla ids med ägarens namn som äger lägenheten för valda hyresgäster by given ids
         if(isset($_GET["include"])){
             $includeId = $_GET["include"];
 
-            $hyresgasterByIdsWithOwnerOfApartmentsName = [];
+            $tenantsByIdsWithOwnerOfApartmentsName = [];
 
-            foreach($hyresgasterByIds as $hyresgastById){
+            foreach($tenantsByIds as $tenantById){
                 foreach($apartments as $apartment){
-                    if($hyresgastById["apartment"] == $apartment["id"]){
+                    if($tenantById["apartment"] == $apartment["id"]){
                         foreach($owners as $owner){
                             if($apartment["id"] == $owner["id"]){
-                                $hyresgastById["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                                $hyresgasterByIdsWithOwnerOfApartmentsName[] = $hyresgastById;
+                                $tenantById["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                                $tenantsByIdsWithOwnerOfApartmentsName[] = $tenantById;
                             }
                         }
                     }
@@ -126,34 +126,34 @@
             }
         }
 
-        if(!empty($hyresgasterByIdsWithOwnerOfApartmentsName)){
-            sendJson($hyresgasterByIdsWithOwnerOfApartmentsName);
+        if(!empty($tenantsByIdsWithOwnerOfApartmentsName)){
+            sendJson($tenantsByIdsWithOwnerOfApartmentsName);
         }
 
-        sendJson($hyresgasterByIds);
+        sendJson($tenantsByIds);
     }
 
-    //Kontrollerar om hyresgäster som har samma hyresvärde är förfrågat
+    //Kontrollerar om hyresgäster som bor i samma lägenhet är förfrågat
     if(isset($_GET["apartment"])){
         $apartmentId = $_GET["apartment"];
         $found = false;
 
         $sameApartment = [];
 
-        //Loopar genom hyresgäster och lägger till arrayen som har samma hyresvärde 
-        foreach ($hyresgaster as $gast) {
-            if($gast["apartment"] == $apartmentId){
+        //Loopar genom hyresgäster och lägger till arrayen som bor i samma lägenhet 
+        foreach ($tenants as $tenant) {
+            if($tenant["apartment"] == $apartmentId){
                 $found = true;
-                array_push($sameApartment, $gast);
+                array_push($sameApartment, $tenant);
             }
         }
 
-        //Om hyresgäst inte finns, skickas error med http-koden 400
+        //Om apartmen med given id har ingen tenant, skickas error med http-koden 400
         if($found == false){
             sendJson(
                 [
                     "code" => 5,
-                    "error" => "There is no tenants with given id of owner",
+                    "error" => "There is no tenant who lives in apartment with given id",
                     "message" => "Bad request"
                 ],
                 400
@@ -164,8 +164,8 @@
         if(isset($_GET["limit"])){ 
             $limit = $_GET["limit"];
 
-            $limitedOwners = array_slice($sameApartment, 0, $limit);
-            sendJson($limitedOwners);
+            $limitedApartments = array_slice($sameApartment, 0, $limit);
+            sendJson($limitedApartments);
         }
         
         sendJson($sameApartment);
@@ -175,8 +175,8 @@
     if(isset($_GET["limit"])){ 
         $limit = $_GET["limit"];
 
-        $slicedHyresgaster = array_slice($hyresgaster, 0, $limit);
-        sendJson($slicedHyresgaster);
+        $slicedTenants = array_slice($tenants, 0, $limit);
+        sendJson($slicedTenants);
     }
 
     //Om det inte finns någon paramter, så anropas funktionen sendJson för att skicka

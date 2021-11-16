@@ -1,5 +1,5 @@
 {
-    "hyresgaster": [
+    "tenants": [
         {"id":1,"first_name":"Laura","last_name":"McTerrelly","email":"lmcterrelly0@salon.com","gender":"Genderqueer","apartment":23},
         {"id":2,"first_name":"Scarface","last_name":"Flye","email":"sflye1@mapy.cz","gender":"Polygender","apartment":6},
         {"id":3,"first_name":"Godwin","last_name":"Thornally","email":"gthornally2@com.com","gender":"Agender","apartment":3},
