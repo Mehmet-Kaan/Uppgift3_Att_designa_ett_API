@@ -179,8 +179,8 @@
         $slicedTenants = array_slice($tenants, 0, $limit);
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
-        // if(isset($_GET["include"])){
-            if($_GET["include"] !== false || $_GET["include"] !== 0){
+        if(isset($_GET["include"])){
+            if($_GET["include"] !== false){
                 foreach($slicedTenants as $tenant){
                     foreach($apartments as $apartment){
                         if($apartment["id"] == $tenant["apartment"]){
@@ -197,12 +197,13 @@
             else{
                 sendJson($slicedTenants);
             }
-        // }
+        }
 
         if(!empty($slicedTenantsWithOwnerOfApartmentsName)){
             sendJson($slicedTenantsWithOwnerOfApartmentsName);
         }
 
+        sendJson($slicedTenants);
     }
 
     //Om det inte finns någon paramater, då skickas hela entiteter
