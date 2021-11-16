@@ -55,7 +55,7 @@ foreach ($tenants as $index => $tenant) {
 if ($found == false) {
     sendJson(
         [
-            "message" => "Tenant not found"
+            "message" => "Tenant with requested id was not found"
         ],
         404
     );

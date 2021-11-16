@@ -56,7 +56,7 @@ foreach ($apartments as $index => $apartment) {
 if ($found == false) {
     sendJson(
         [
-            "message" => "Apartment not found"
+            "message" => "Apartment with requested id was not found"
         ],
         404
     );
