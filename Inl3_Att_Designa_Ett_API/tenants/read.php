@@ -62,7 +62,7 @@
                 if($apartment["id"] == $hyresgast["apartment"]){
                     foreach($owners as $owner){
                         if($apartment["id"] == $owner["id"]){
-                            $hyresgast["apartment"] = $owner["name"];
+                            $hyresgast["apartment"] = "{ownsBy : ".$owner["name"]."}";
                         }
                     }
                 }
@@ -110,37 +110,41 @@
         if(isset($_GET["include"])){
             $includeId = $_GET["include"];
 
-            $hyresgasterByIdsWithOwnersName = [];
+            $hyresgasterByIdsWithOwnerOfApartmentsName = [];
 
             foreach($hyresgasterByIds as $hyresgastById){
-                foreach($owners as $owner){
-                    if($hyresgastById["owner"] == $owner["id"]){
-                        $hyresgastById["owner"] = $owner["name"];
-                        $hyresgasterByIdsWithOwnersName[] = $hyresgastById;
+                foreach($apartments as $apartment){
+                    if($hyresgastById["apartment"] == $apartment["id"]){
+                        foreach($owners as $owner){
+                            if($apartment["id"] == $owner["id"]){
+                                $hyresgastById["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                                $hyresgasterByIdsWithOwnerOfApartmentsName[] = $hyresgastById;
+                            }
+                        }
                     }
                 }
             }
         }
 
-        if(!empty($hyresgasterByIdsWithOwnersName)){
-            sendJson($hyresgasterByIdsWithOwnersName);
+        if(!empty($hyresgasterByIdsWithOwnerOfApartmentsName)){
+            sendJson($hyresgasterByIdsWithOwnerOfApartmentsName);
         }
 
         sendJson($hyresgasterByIds);
     }
 
     //Kontrollerar om hyresgäster som har samma hyresvärde är förfrågat
-    if(isset($_GET["owner"])){
-        $ownerId = $_GET["owner"];
+    if(isset($_GET["apartment"])){
+        $apartmentId = $_GET["apartment"];
         $found = false;
 
-        $sameOwner = [];
+        $sameApartment = [];
 
         //Loopar genom hyresgäster och lägger till arrayen som har samma hyresvärde 
         foreach ($hyresgaster as $gast) {
-            if($gast["owner"] == $ownerId){
+            if($gast["apartment"] == $apartmentId){
                 $found = true;
-                array_push($sameOwner, $gast);
+                array_push($sameApartment, $gast);
             }
         }
 
@@ -160,11 +164,11 @@
         if(isset($_GET["limit"])){ 
             $limit = $_GET["limit"];
 
-            $limitedOwners = array_slice($sameOwner, 0, $limit);
+            $limitedOwners = array_slice($sameApartment, 0, $limit);
             sendJson($limitedOwners);
         }
         
-        sendJson($sameOwner);
+        sendJson($sameApartment);
     }
 
     //Kontrollerar om en specifick antal av hyresgäster är förfrågat
