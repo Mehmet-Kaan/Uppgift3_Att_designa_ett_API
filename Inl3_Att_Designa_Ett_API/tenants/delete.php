@@ -6,6 +6,7 @@ require_once "../functions.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 
+// Kontrollera att rätt metod används
 if ($method !== "DELETE") {
     sendJson(
         [
@@ -15,12 +16,15 @@ if ($method !== "DELETE") {
     );
 }
 
+// Hämtar databas och gör om till php
 $enteties = loadJson("../database.json");
 $tenants = $enteties["tenants"];
 
+// Hämtar data som skickats med requesten
 $data = file_get_contents("php://input");
 $requestData = json_decode($data, true);
 
+// Kontrollerar att "id" skickats med
 if (!isset($requestData["id"])) {
     sendJson(
         [
@@ -33,30 +37,36 @@ if (!isset($requestData["id"])) {
 $id = $requestData["id"];
 $found = false;
 
+// Hittar "tenant" som har 'id' som skickades med, och raderar ur arrayen
 foreach ($tenants as $index => $tenant) {
     if ($tenant["id"] === $id) {
         $found = true;
+        $deletedTenant = $tenant;
+
         array_splice($tenants, $index, 1);
         $enteties["tenants"] = $tenants;
         
+        // Avbryter loopen
         break;
     }
 }
 
+// Om "tenant" inte hittas så skickas ett felmeddelande
 if ($found == false) {
     sendJson(
         [
-            "code" => 2,
-            "message" => "Not found"
+            "message" => "Tenant not found"
         ],
         404
     );
 }
 
+// Sparar den uppdaterade databasen
 $saved = saveJson("../database.json", $enteties);
 
+// Om "sparandet" gick bra skickas den raderade användaren
 if ($saved == true) {
-    sendJson(["id" => $id]);
+    sendJson($deletedTenant);
 }
 
 ?>
