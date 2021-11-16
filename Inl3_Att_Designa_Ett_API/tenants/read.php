@@ -57,20 +57,10 @@
         if(isset($_GET["include"])){
             $includeId = $_GET["include"];
 
-            //Ska vi själva bestämma på ägaren eller ?
-            // foreach($owners as $owner){
-            //     if($owner["id"] == $includeId){
-            //         $hyresgast["owner"] = $owner["name"];
-            //         sendJson($hyresgast);
-            //     }
-            // }
- 
-            //Eller ska vi includera ägaren som hyresgästen har liksom??
-
-            //Loopar genom ägaren för att lägga till hyresvärdet namn 
-            foreach($owners as $owner){
-                if($owner["id"] == $hyresgast["owner"]){
-                    $hyresgast["owner"] = $owner["name"];
+            //Loopar genom ägaren för att lägga till apartment namn 
+            foreach($aparments as $aparment){
+                if($aparment["owner"] == $hyresgast["aparment"]){
+                    $hyresgast["aparment"] = $aparment["owner"];
                     sendJson($hyresgast);
                 }
             }
