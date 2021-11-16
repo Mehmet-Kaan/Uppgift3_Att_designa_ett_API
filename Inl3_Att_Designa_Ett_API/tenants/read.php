@@ -109,21 +109,22 @@
         //Byter alla ids med ägarens namn som äger lägenheten för valda hyresgäster by given ids
         if(isset($_GET["include"])){
             $includeId = $_GET["include"];
-
             $tenantsByIdsWithOwnerOfApartmentsName = [];
 
-            foreach($tenantsByIds as $tenantById){
-                foreach($apartments as $apartment){
-                    if($tenantById["apartment"] == $apartment["id"]){
-                        foreach($owners as $owner){
-                            if($apartment["id"] == $owner["id"]){
-                                $tenantById["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                                $tenantsByIdsWithOwnerOfApartmentsName[] = $tenantById;
+            if($_GET["include"] !== false){
+                foreach($tenantsByIds as $tenantById){
+                    foreach($apartments as $apartment){
+                        if($tenantById["apartment"] == $apartment["id"]){
+                            foreach($owners as $owner){
+                                if($apartment["id"] == $owner["id"]){
+                                    $tenantById["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                                    $tenantsByIdsWithOwnerOfApartmentsName[] = $tenantById;
+                                }
                             }
                         }
                     }
                 }
-            }
+            }            
         }
 
         if(!empty($tenantsByIdsWithOwnerOfApartmentsName)){
@@ -178,8 +179,8 @@
         $slicedTenants = array_slice($tenants, 0, $limit);
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
-        if(isset($_GET["include"])){
-            if($_GET["include"] === true){
+        if($_GET["include"] !== false){
+            // if($_GET["include"] !== false){
                 foreach($slicedTenants as $tenant){
                     foreach($apartments as $apartment){
                         if($apartment["id"] == $tenant["apartment"]){
@@ -192,7 +193,7 @@
                         }
                     }
                 }
-            }
+            // }
         }
 
         if(!empty($slicedTenantsWithOwnerOfApartmentsName)){
