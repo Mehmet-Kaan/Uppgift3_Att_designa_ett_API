@@ -179,7 +179,7 @@
         $slicedTenants = array_slice($tenants, 0, $limit);
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
-        if(isset($_GET["include"])){
+        // if(isset($_GET["include"])){
             if($_GET["include"] !== false || $_GET["include"] !== 0){
                 foreach($slicedTenants as $tenant){
                     foreach($apartments as $apartment){
@@ -197,7 +197,7 @@
             else{
                 sendJson($slicedTenants);
             }
-        }
+        // }
 
         if(!empty($slicedTenantsWithOwnerOfApartmentsName)){
             sendJson($slicedTenantsWithOwnerOfApartmentsName);
