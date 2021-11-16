@@ -22,7 +22,7 @@
     $hyresgaster = $entiteter["hyresgaster"];
 
     //Alla lägenheter
-    $lagenheter = $entiteter["lagenheter"];
+    $apartments = $entiteter["apartments"];
 
     //Alla ägare
     $owners = $entiteter["owners"];
@@ -58,16 +58,16 @@
             $includeId = $_GET["include"];
 
             //Loopar genom ägaren för att lägga till apartment namn 
-            foreach($aparments as $aparment){
-                if($aparment["id"] == $hyresgast["aparment"]){
+            foreach($apartments as $apartment){
+                if($apartment["id"] == $hyresgast["apartment"]){
                     foreach($owners as $owner){
-                        if($aparment["id"] == $owner["id"]){
-                            $hyresgast["aparment"] = $owner["name"];
+                        if($apartment["id"] == $owner["id"]){
+                            $hyresgast["apartment"] = $owner["name"];
                         }
                     }
-                    sendJson($hyresgast);
                 }
             }
+            sendJson($hyresgast);
         }
 
         sendJson($hyresgast);
