@@ -200,8 +200,7 @@
         sendJson($slicedTenants);
     }
 
-    //Om det inte finns någon paramter, så anropas funktionen sendJson för att skicka
-    //hela entiteter
+    //Om det inte finns någon paramater, då skickas hela entiteter
     sendJson($entiteter);
     
     ?>
