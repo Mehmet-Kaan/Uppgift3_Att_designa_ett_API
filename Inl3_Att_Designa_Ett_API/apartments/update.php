@@ -110,7 +110,7 @@ foreach ($apartments as $index => $apartment) {
 if ($found == false) {
     sendJson(
         [
-            "message" => "The users by `id` does not exist"
+            "message" => "Requested 'id' was not found"
         ],
         404
     );
