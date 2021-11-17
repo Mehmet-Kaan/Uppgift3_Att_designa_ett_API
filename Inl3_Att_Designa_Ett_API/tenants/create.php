@@ -5,17 +5,17 @@ $contentType = $_SERVER["CONTENT-TYPE"];
 
 require_once "../functions.php";
 
-// Kontrollera att rätt content-type skickades med
-if ($contentType !== "application/json") {
-    sendJson(
-        [
-            "code" => 7,
-            "error" => "The API only accepts JSON!",
-            "message" => "Bad request!"
-        ],
-        400
-    );
-}
+// // Kontrollera att rätt content-type skickades med
+// if ($contentType !== "application/json") {
+//     sendJson(
+//         [
+//             "code" => 7,
+//             "error" => "The API only accepts JSON!",
+//             "message" => "Bad request!"
+//         ],
+//         400
+//     );
+// }
 
 // Kontrollera att rätt metod skickades med
 if ($method !== "POST") {
@@ -53,7 +53,6 @@ $lastName = $requestData["last_name"];
 $email =  $requestData["email"];
 $gender = $requestData["gender"];
 $apartmentId = $requestData["apartment"];
-$found = false;
 
 $highestID = 0;
 
@@ -76,7 +75,7 @@ $newTenant = [
 ];
 
 //Pushar in den nya hyresägsten till tenants
-array_push($tenants, $newTenant); 
+array_push($newTenant, $tenants); 
 
 // Sparar den uppdaterade databasen
 $saved = saveJson("../database.json", $enteties);
@@ -94,5 +93,7 @@ if ($saved == true) {
         400
     );
 }
+
+
 
 ?>
