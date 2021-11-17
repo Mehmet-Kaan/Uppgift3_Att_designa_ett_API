@@ -106,24 +106,22 @@
         }
 
         //Byter alla ids med ägarens namn som äger lägenheten för valda hyresgäster by given ids
-        if(isset($_GET["include"])){
+        if(!empty($_GET["include"])){
             $includeId = $_GET["include"];
             $tenantsByIdsWithOwnerOfApartmentsName = [];
-
-            if($_GET["include"] !== false){
-                foreach($tenantsByIds as $tenantById){
-                    foreach($apartments as $apartment){
-                        if($tenantById["apartment"] == $apartment["id"]){
-                            foreach($owners as $owner){
-                                if($apartment["id"] == $owner["id"]){
-                                    $tenantById["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                                    $tenantsByIdsWithOwnerOfApartmentsName[] = $tenantById;
-                                }
-                            }
+        
+            foreach($tenantsByIds as $tenantById){
+                foreach($apartments as $apartment){
+                    if($tenantById["apartment"] == $apartment["id"]){
+                        foreach($owners as $owner){
+                            if($apartment["id"] == $owner["id"]){
+                                $tenantById["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                                $tenantsByIdsWithOwnerOfApartmentsName[] = $tenantById;                                }
                         }
                     }
                 }
-            }            
+            }
+                        
         }
 
         if(!empty($tenantsByIdsWithOwnerOfApartmentsName)){
@@ -178,24 +176,19 @@
         $slicedTenants = array_slice($tenants, 0, $limit);
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
-        if(isset($_GET["include"])){
-            if($_GET["include"] !== false){
-                foreach($slicedTenants as $tenant){
-                    foreach($apartments as $apartment){
-                        if($apartment["id"] == $tenant["apartment"]){
-                            foreach($owners as $owner){
-                                if($owner["id"] == $apartment["id"]){
-                                    $tenant["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                                    $slicedTenantsWithOwnerOfApartmentsName[] = $tenant;
-                                }
-                            }
+        if(!empty($_GET["include"])){
+            foreach($slicedTenants as $tenant){
+                foreach($apartments as $apartment){
+                    if($apartment["id"] == $tenant["apartment"]){
+                        foreach($owners as $owner){
+                            if($owner["id"] == $apartment["id"]){
+                                $tenant["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                                $slicedTenantsWithOwnerOfApartmentsName[] = $tenant;                                }
                         }
                     }
                 }
             }
-            else{
-                sendJson($slicedTenants);
-            }
+            
         }
 
         if(!empty($slicedTenantsWithOwnerOfApartmentsName)){
