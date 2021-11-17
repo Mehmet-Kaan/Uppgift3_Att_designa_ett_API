@@ -1,7 +1,7 @@
 <?php
 
 $method = $_SERVER["REQUEST_METHOD"];
-$contentType = $_SERVER["CONTENT-TYPE"];
+$contentType = $_SERVER["CONTENT_TYPE"];
 
 require_once "../functions.php";
 
@@ -57,13 +57,13 @@ $apartmentId = $requestData["apartment"];
 $highestID = 0;
 
 // Loopar genom "tenants" för att hitta den högsta 'id'
-foreach ($tenants as $index => $tenant) {
+foreach ($tenants as $tenant) {
     if ($tenant["id"] > $highestID) {
         $highestID = $tenant["id"];
     }
 }
 
-$highestID = $highestID + 1;
+$highestID += 1;
 
 $newTenant = [
     "id" => $highestID,
