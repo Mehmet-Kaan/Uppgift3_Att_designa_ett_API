@@ -1,22 +1,9 @@
 <?php
-/* Kunna radera en entitet baserat på ett ID. Ni ska kontrollera att ID:et dom specificerat faktiskt existerar. 
-Skulle något gå fel ska ni svara med något relevant meddelande så att användaren av ert API förstår vad som gått fel. */
-
-require_once "../functions.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 $contentType = $_SERVER["CONTENT-TYPE"];
 
-// Kontrollera att rätt metod används
-if ($method !== "POST") {
-    sendJson(
-        [
-            "code" => 8,
-            "message" => "This method is not allowed!"
-        ],
-        405
-    );
-}
+require_once "../functions.php";
 
 // Kontrollera att rätt metod används
 if ($contentType !== "application/json") {
@@ -30,7 +17,18 @@ if ($contentType !== "application/json") {
     );
 }
 
-// Hämtar databas och gör om till php
+// Kontrollera att rätt metod används
+if ($method !== "POST") {
+    sendJson(
+        [
+            "code" => 8,
+            "message" => "This method is not allowed!"
+        ],
+        405
+    );
+}
+
+// Hämtar databas
 $enteties = loadJson("../database.json");
 $tenants = $enteties["tenants"];
 
@@ -77,13 +75,13 @@ $newTenant = [
     "apartment" => $apartmentId
 ];
 
-//Pushar den nya hyresägsten till tenants
+//Pushar in den nya hyresägsten till tenants
 array_push($tenants, $newTenant); 
 
 // Sparar den uppdaterade databasen
 $saved = saveJson("../database.json", $enteties);
 
-// Om "sparandet" gick bra skickas
+// Om det lyckades med sparandet
 if ($saved == true) {
     sendJson($newTenant);
 } else {
