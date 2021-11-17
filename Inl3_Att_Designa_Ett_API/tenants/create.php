@@ -8,6 +8,17 @@ $method = $_SERVER["REQUEST_METHOD"];
 $contentType = $_SERVER["CONTENT-TYPE"];
 
 // Kontrollera att rätt metod används
+if ($method !== "POST") {
+    sendJson(
+        [
+            "code" => 8,
+            "message" => "This method is not allowed!"
+        ],
+        405
+    );
+}
+
+// Kontrollera att rätt metod används
 if ($contentType !== "application/json") {
     sendJson(
         [
@@ -16,17 +27,6 @@ if ($contentType !== "application/json") {
             "message" => "Bad request!"
         ],
         400
-    );
-}
-
-// Kontrollera att rätt metod används
-if ($method !== "POST") {
-    sendJson(
-        [
-            "code" => 8,
-            "message" => "This method is not allowed!"
-        ],
-        405
     );
 }
 
