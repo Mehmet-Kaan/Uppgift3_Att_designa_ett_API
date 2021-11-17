@@ -75,7 +75,7 @@ $newTenant = [
 ];
 
 //Pushar in den nya hyresägsten till tenants
-array_push($newTenant, $tenants); 
+array_push($tenants, $newTenant); 
 
 // Sparar den uppdaterade databasen
 $saved = saveJson("../database.json", $enteties);
