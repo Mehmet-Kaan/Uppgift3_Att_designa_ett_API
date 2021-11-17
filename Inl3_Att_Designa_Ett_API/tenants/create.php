@@ -5,17 +5,17 @@ $contentType = $_SERVER["CONTENT-TYPE"];
 
 require_once "../functions.php";
 
-// // Kontrollera att rätt content-type skickades med
-// if ($contentType !== "application/json") {
-//     sendJson(
-//         [
-//             "code" => 7,
-//             "error" => "The API only accepts JSON!",
-//             "message" => "Bad request!"
-//         ],
-//         400
-//     );
-// }
+// Kontrollera att rätt content-type skickades med
+if ($contentType !== "application/json") {
+    sendJson(
+        [
+            "code" => 7,
+            "error" => "The API only accepts JSON!",
+            "message" => "Bad request!"
+        ],
+        400
+    );
+}
 
 // Kontrollera att rätt metod skickades med
 if ($method !== "POST") {
