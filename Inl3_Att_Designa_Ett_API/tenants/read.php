@@ -16,16 +16,16 @@
     } 
 
     //hämtar alla entiteter
-    $entiteter = loadJson("../database.json");
+    $enteties = loadJson("../database.json");
 
     //Alla hyresgäster
-    $tenants = $entiteter["tenants"];
+    $tenants = $enteties["tenants"];
 
     //Alla lägenheter
-    $apartments = $entiteter["apartments"];
+    $apartments = $enteties["apartments"];
 
     //Alla ägare
-    $owners = $entiteter["owners"];
+    $owners = $enteties["owners"];
 
     //Kontrollerar om förfrågan är en hyresgäst?
     if(isset($_GET["id"])){
@@ -54,7 +54,7 @@
         }
 
         ////Kontrollerar om include finns i förfrågan
-        if(isset($_GET["include"])){
+        if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
             $includeId = $_GET["include"];
             //Loopar genom ägaren för att lägga till apartment namn 
             foreach($apartments as $apartment){
@@ -106,7 +106,7 @@
         }
 
         //Byter alla ids med ägarens namn som äger lägenheten för valda hyresgäster by given ids
-        if(!empty($_GET["include"])){
+        if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
             $includeId = $_GET["include"];
             $tenantsByIdsWithOwnerOfApartmentsName = [];
         
@@ -176,7 +176,7 @@
         $slicedTenants = array_slice($tenants, 0, $limit);
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
-        if(!empty($_GET["include"])){
+        if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
             foreach($slicedTenants as $tenant){
                 foreach($apartments as $apartment){
                     if($apartment["id"] == $tenant["apartment"]){
@@ -199,6 +199,6 @@
     }
 
     //Om det inte finns någon paramater, då skickas hela entiteter
-    sendJson($entiteter);
+    sendJson($enteties);
     
     ?>
