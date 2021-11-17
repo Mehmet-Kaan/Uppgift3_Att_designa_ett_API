@@ -75,25 +75,11 @@ $newTenant = [
 ];
 
 //Pushar in den nya hyresägsten till tenants
-array_push($tenants, $newTenant); 
+array_push($enteties["tenants"],$newTenant);
 
 // Sparar den uppdaterade databasen
-$saved = saveJson("../database.json", $enteties);
+saveJson("../database.json", $enteties);
 
-// Om det lyckades med sparandet
-if ($saved == true) {
-    sendJson($newTenant);
-} else {
-    sendJson(
-        [
-            "code" => 10,
-            "error" => "New tenants could not added succesfully!",
-            "message" => "Bad request!"
-        ],
-        400
-    );
-}
-
-
+sendJson($newTenant);
 
 ?>
