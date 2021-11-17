@@ -5,7 +5,7 @@ $contentType = $_SERVER["CONTENT-TYPE"];
 
 require_once "../functions.php";
 
-// Kontrollera att rätt metod används
+// Kontrollera att rätt content-type skickades med
 if ($contentType !== "application/json") {
     sendJson(
         [
@@ -17,7 +17,7 @@ if ($contentType !== "application/json") {
     );
 }
 
-// Kontrollera att rätt metod används
+// Kontrollera att rätt metod skickades med
 if ($method !== "POST") {
     sendJson(
         [
