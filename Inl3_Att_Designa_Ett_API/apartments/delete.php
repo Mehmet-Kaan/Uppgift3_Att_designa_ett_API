@@ -54,15 +54,36 @@ if ($found == false) {
     );
 }
 
-// Hitta "tenant" som bor i lägenheten och ta bort den
+// Hitta "tenant" som bor i lägenheten och ta bort den också
+$foundTenant = false;
 
+foreach ($tenants as $index => $tenant) {
+    if ($tenant["apartment"] === $id) {
+        $foundTenant = true;
+        $deletedTenant = $tenant;
+
+        array_splice($tenants, $index, 1);
+        $enteties["tenants"] = $tenants;
+
+        break;
+    }
+}
 
 // Sparar ner den uppdaterade databasen
 $saved = saveJson("../database.json", $enteties);
 
 // Om "sparandet" gick bra skickas den raderade lägenheten till användaren
 if ($saved == true) {
-    sendJson($deletedApartment);
+    if ($foundTenant) {
+        sendJson(
+            [
+            "deletedApartment" => $deletedApartment,
+            "deletedTenants" => $deletedTenant
+            ]
+        );
+    } else {
+        sendJson(["deletedApartmen" => $deletedApartment]);
+    }
 }
 
 ?>
