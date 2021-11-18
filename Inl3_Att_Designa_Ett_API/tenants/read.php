@@ -23,9 +23,6 @@
     //Alla lägenheter
     $apartments = $enteties["apartments"];
 
-    //Alla ägare
-    $owners = $enteties["owners"];
-
     //Kontrollerar om förfrågan är en hyresgäst?
     if(isset($_GET["id"])){
         $id = $_GET["id"];
