@@ -18,11 +18,11 @@
         },
         {
             "id": 3,
-            "first_name": "Godwin",
-            "last_name": "Thornally",
-            "email": "gthornally2@com.com",
-            "gender": "Agender",
-            "apartment": 3
+            "first_name": "Mike",
+            "last_name": "Tyson",
+            "email": "mike.tyson@mau.se",
+            "gender": "male",
+            "apartment": 12
         },
         {
             "id": 4,
@@ -242,35 +242,215 @@
         }
     ],
     "apartments": [
-        {"id":1,"owner":"Nigel Cutchie","city":"Fray Bentos","street_adress":"696 Rigney Junction","apartment_color":"Maroon"},
-        {"id":2,"owner":"Syd Skeermor","city":"A’ershan","street_adress":"719 Menomonie Circle","apartment_color":"Mauv"},
-        {"id":3,"owner":"Gert Janikowski","city":"Meishan","street_adress":"612 Ramsey Alley","apartment_color":"Fuscia"},
-        {"id":4,"owner":"Patsy Delia","city":"Jiangqiao","street_adress":"71563 Fordem Junction","apartment_color":"Violet"},
-        {"id":5,"owner":"Fleurette Thickin","city":"He’an","street_adress":"4 Nelson Center","apartment_color":"Khaki"},
-        {"id":6,"owner":"Alfonso Simonitto","city":"Chodová Planá","street_adress":"18 Hansons Street","apartment_color":"Indigo"},
-        {"id":7,"owner":"Sutherlan Jeandillou","city":"Butajīra","street_adress":"224 Chinook Center","apartment_color":"Turquoise"},
-        {"id":8,"owner":"Hollis Sprouls","city":"Căuşeni","street_adress":"98 Continental Junction","apartment_color":"Orange"},
-        {"id":9,"owner":"Rurik Sigmund","city":"Roma","street_adress":"097 Killdeer Court","apartment_color":"Orange"},
-        {"id":10,"owner":"Parry Reddoch","city":"Goúrnes","street_adress":"14812 Russell Place","apartment_color":"Turquoise"},
-        {"id":11,"owner":"Barty Battman","city":"Outeiro Seco","street_adress":"406 Spohn Point","apartment_color":"Aquamarine"},
-        {"id":12,"owner":"Margo McTurley","city":"Titao","street_adress":"01 Mariners Cove Place","apartment_color":"Purple"},
-        {"id":13,"owner":"Corena Wilcockes","city":"Bojong","street_adress":"8 Sloan Lane","apartment_color":"Blue"},
-        {"id":14,"owner":"Creighton Casassa","city":"Kayima","street_adress":"80150 Lakewood Crossing","apartment_color":"Blue"},
-        {"id":15,"owner":"Tammie Bertie","city":"Dimitsána","street_adress":"5649 Blaine Place","apartment_color":"Khaki"},
-        {"id":16,"owner":"Abba Godlonton","city":"Kochevo","street_adress":"5 Mitchell Park","apartment_color":"Turquoise"},
-        {"id":17,"owner":"Cyrill Bodell","city":"Bisée","street_adress":"3 Westerfield Trail","apartment_color":"Violet"},
-        {"id":18,"owner":"Deeanne Leaman","city":"Dortmund","street_adress":"75671 Katie Avenue","apartment_color":"Orange"},
-        {"id":19,"owner":"Juliet Rooksby","city":"Ambarita","street_adress":"396 Larry Point","apartment_color":"Green"},
-        {"id":20,"owner":"Maisie Patient","city":"Lamalewar","street_adress":"29 Valley Edge Drive","apartment_color":"Red"},
-        {"id":21,"owner":"Danya McAvey","city":"Pirapora","street_adress":"0200 Utah Crossing","apartment_color":"Khaki"},
-        {"id":22,"owner":"Borden Tingly","city":"Ueno","street_adress":"1 Hudson Junction","apartment_color":"Crimson"},
-        {"id":23,"owner":"Leanor Raspin","city":"Sidu","street_adress":"16 Monica Alley","apartment_color":"Red"},
-        {"id":24,"owner":"Tiphanie Howard - Gater","city":"Balzan","street_adress":"71157 Gerald Park","apartment_color":"Khaki"},
-        {"id":25,"owner":"Fleur Slay","city":"Boevange-sur-Attert","street_adress":"54 Buhler Avenue","apartment_color":"Red"},
-        {"id":26,"owner":"Alissa Elvy","city":"Manggekompo","street_adress":"568 Columbus Avenue","apartment_color":"Purple"},
-        {"id":27,"owner":"Juliet Dishmon","city":"Souto","street_adress":"0862 Sauthoff Hill","apartment_color":"Turquoise"},
-        {"id":28,"owner":"Kendra Stringfellow","city":"Nanmo","street_adress":"43243 Bartillon Crossing","apartment_color":"Teal"},
-        {"id":29,"owner":"Kamillah Pagan","city":"Pointe-à-Pitre","street_adress":"3017 Swallow Drive","apartment_color":"Yellow"},
-        {"id":30,"owner":"Duky Ainscow","city":"Mpongwe","street_adress":"2 Northview Hill","apartment_color":"Mauv"}
+        {
+            "id": 1,
+            "owner": "Nigel Cutchie",
+            "city": "Fray Bentos",
+            "street_adress": "696 Rigney Junction",
+            "apartment_color": "Maroon"
+        },
+        {
+            "id": 2,
+            "owner": "Syd Skeermor",
+            "city": "A\u2019ershan",
+            "street_adress": "719 Menomonie Circle",
+            "apartment_color": "Mauv"
+        },
+        {
+            "id": 3,
+            "owner": "Gert Janikowski",
+            "city": "Meishan",
+            "street_adress": "612 Ramsey Alley",
+            "apartment_color": "Fuscia"
+        },
+        {
+            "id": 4,
+            "owner": "Patsy Delia",
+            "city": "Jiangqiao",
+            "street_adress": "71563 Fordem Junction",
+            "apartment_color": "Violet"
+        },
+        {
+            "id": 5,
+            "owner": "Fleurette Thickin",
+            "city": "He\u2019an",
+            "street_adress": "4 Nelson Center",
+            "apartment_color": "Khaki"
+        },
+        {
+            "id": 6,
+            "owner": "Alfonso Simonitto",
+            "city": "Chodov\u00e1 Plan\u00e1",
+            "street_adress": "18 Hansons Street",
+            "apartment_color": "Indigo"
+        },
+        {
+            "id": 7,
+            "owner": "Sutherlan Jeandillou",
+            "city": "Butaj\u012bra",
+            "street_adress": "224 Chinook Center",
+            "apartment_color": "Turquoise"
+        },
+        {
+            "id": 8,
+            "owner": "Hollis Sprouls",
+            "city": "C\u0103u\u015feni",
+            "street_adress": "98 Continental Junction",
+            "apartment_color": "Orange"
+        },
+        {
+            "id": 9,
+            "owner": "Rurik Sigmund",
+            "city": "Roma",
+            "street_adress": "097 Killdeer Court",
+            "apartment_color": "Orange"
+        },
+        {
+            "id": 10,
+            "owner": "Parry Reddoch",
+            "city": "Go\u00farnes",
+            "street_adress": "14812 Russell Place",
+            "apartment_color": "Turquoise"
+        },
+        {
+            "id": 11,
+            "owner": "Barty Battman",
+            "city": "Outeiro Seco",
+            "street_adress": "406 Spohn Point",
+            "apartment_color": "Aquamarine"
+        },
+        {
+            "id": 12,
+            "owner": "Margo McTurley",
+            "city": "Titao",
+            "street_adress": "01 Mariners Cove Place",
+            "apartment_color": "Purple"
+        },
+        {
+            "id": 13,
+            "owner": "Corena Wilcockes",
+            "city": "Bojong",
+            "street_adress": "8 Sloan Lane",
+            "apartment_color": "Blue"
+        },
+        {
+            "id": 14,
+            "owner": "Creighton Casassa",
+            "city": "Kayima",
+            "street_adress": "80150 Lakewood Crossing",
+            "apartment_color": "Blue"
+        },
+        {
+            "id": 15,
+            "owner": "Tammie Bertie",
+            "city": "Dimits\u00e1na",
+            "street_adress": "5649 Blaine Place",
+            "apartment_color": "Khaki"
+        },
+        {
+            "id": 16,
+            "owner": "Abba Godlonton",
+            "city": "Kochevo",
+            "street_adress": "5 Mitchell Park",
+            "apartment_color": "Turquoise"
+        },
+        {
+            "id": 17,
+            "owner": "Cyrill Bodell",
+            "city": "Bis\u00e9e",
+            "street_adress": "3 Westerfield Trail",
+            "apartment_color": "Violet"
+        },
+        {
+            "id": 18,
+            "owner": "Deeanne Leaman",
+            "city": "Dortmund",
+            "street_adress": "75671 Katie Avenue",
+            "apartment_color": "Orange"
+        },
+        {
+            "id": 19,
+            "owner": "Juliet Rooksby",
+            "city": "Ambarita",
+            "street_adress": "396 Larry Point",
+            "apartment_color": "Green"
+        },
+        {
+            "id": 20,
+            "owner": "Maisie Patient",
+            "city": "Lamalewar",
+            "street_adress": "29 Valley Edge Drive",
+            "apartment_color": "Red"
+        },
+        {
+            "id": 21,
+            "owner": "Danya McAvey",
+            "city": "Pirapora",
+            "street_adress": "0200 Utah Crossing",
+            "apartment_color": "Khaki"
+        },
+        {
+            "id": 22,
+            "owner": "Borden Tingly",
+            "city": "Ueno",
+            "street_adress": "1 Hudson Junction",
+            "apartment_color": "Crimson"
+        },
+        {
+            "id": 23,
+            "owner": "Leanor Raspin",
+            "city": "Sidu",
+            "street_adress": "16 Monica Alley",
+            "apartment_color": "Red"
+        },
+        {
+            "id": 24,
+            "owner": "Tiphanie Howard - Gater",
+            "city": "Balzan",
+            "street_adress": "71157 Gerald Park",
+            "apartment_color": "Khaki"
+        },
+        {
+            "id": 25,
+            "owner": "Fleur Slay",
+            "city": "Boevange-sur-Attert",
+            "street_adress": "54 Buhler Avenue",
+            "apartment_color": "Red"
+        },
+        {
+            "id": 26,
+            "owner": "Alissa Elvy",
+            "city": "Manggekompo",
+            "street_adress": "568 Columbus Avenue",
+            "apartment_color": "Purple"
+        },
+        {
+            "id": 27,
+            "owner": "Juliet Dishmon",
+            "city": "Souto",
+            "street_adress": "0862 Sauthoff Hill",
+            "apartment_color": "Turquoise"
+        },
+        {
+            "id": 28,
+            "owner": "Kendra Stringfellow",
+            "city": "Nanmo",
+            "street_adress": "43243 Bartillon Crossing",
+            "apartment_color": "Teal"
+        },
+        {
+            "id": 29,
+            "owner": "Kamillah Pagan",
+            "city": "Pointe-\u00e0-Pitre",
+            "street_adress": "3017 Swallow Drive",
+            "apartment_color": "Yellow"
+        },
+        {
+            "id": 30,
+            "owner": "Duky Ainscow",
+            "city": "Mpongwe",
+            "street_adress": "2 Northview Hill",
+            "apartment_color": "Mauv"
+        }
     ]
 }
