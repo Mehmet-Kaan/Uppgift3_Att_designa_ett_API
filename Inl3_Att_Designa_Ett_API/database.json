@@ -18,11 +18,11 @@
         },
         {
             "id": 3,
-            "first_name": "Godwin",
-            "last_name": "Thornally",
-            "email": "gthornally2@com.com",
-            "gender": "Agender",
-            "apartment": 3
+            "first_name": "Mike",
+            "last_name": "Tyson",
+            "email": "mike.tyson@mau.se",
+            "gender": "male",
+            "apartment": 12
         },
         {
             "id": 4,

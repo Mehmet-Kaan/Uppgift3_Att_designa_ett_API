@@ -52,4 +52,8 @@ function inspect($var){
     var_dump($var);
     echo "</pre>";
 }
+
+function limitTheArray($array, $limit){
+    return array_slice($array, 0, $limit);
+}
 ?>

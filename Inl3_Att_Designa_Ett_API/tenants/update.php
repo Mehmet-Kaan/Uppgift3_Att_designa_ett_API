@@ -7,42 +7,25 @@ $contentType = $_SERVER["CONTENT_TYPE"];
 require_once "../functions.php";
 
 // Kontrollera att rätt content-type skickades med
-if ($contentType !== "application/json") {
-    sendJson(
-        [
-            "code" => 10,
-            "error" => "The API only accepts JSON!",
-            "message" => "Bad request!"
-        ],
-        400
-    );
-}
+checkConentType();
 
 // Kontrollera att rätt metod skickades med
-if ($method !== "PATCH") {
-    sendJson(
-        [
-            "code" => 11,
-            "message" => "This method is not allowed"
-        ],
-        405
-    );
-}
+checkMethod($method);
 
 // Hämtar databas och gör om till php
 $enteties = loadJson("../database.json");
 $tenants = $enteties["tenants"];
+$apartments = $enteties["apartments"];
 
 // Hämtar data som skickats med requesten
 $data = file_get_contents("php://input");
 $requestData = json_decode($data, true);
 
 // Kontrollerar att "id" skickats med
-if (!isset($requestData["id"])) {
+if (!isset($requestData["id"], $requestData["apartment"])) {
     sendJson(
         [
-            "code" => 12,
-            "message" => "You're missing an `id` of request body"
+            "message" => "You're missing an `id` or `apartmentId` of request body"
         ],
         400
     );
@@ -57,6 +40,25 @@ $lastName = $requestData["last_name"];
 $email =  $requestData["email"];
 $gender = $requestData["gender"];
 $apartmentId = $requestData["apartment"];
+
+$apartmentFound = false;
+
+//Loopar genom lägenheter för att kontrollera om lägenheten med given id finns
+foreach($apartments as $apartment){
+    if ($apartment["id"] == $apartmentId){
+        $apartmentFound = true;
+    };
+}
+
+//Kontrollerar om lägenheten hittades
+if($apartmentFound == false){
+    sendJson(
+        [
+            "message" => "Apartment with that id doesn`t exist"
+        ],
+        400
+    );
+}
 
 // Hittar "tenant" som har 'id' som skickades med, och raderar ur arrayen
 foreach ($tenants as $index => $tenant) {
@@ -89,7 +91,6 @@ foreach ($tenants as $index => $tenant) {
 if ($found == false) {
     sendJson(
         [
-            "code" => 13,
             "message" => "Requested 'id' was not found"
         ],
         404
