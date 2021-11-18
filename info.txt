@@ -1,0 +1,7 @@
+Gruppmedlemmarna: 
+- Matilda Einarsson
+- Mehmet Kaan Taspunar
+- Melinda Sowole
+
+Länk till vår GitHub-repository: 
+https://github.com/Mehmet-Kaan/Uppgift3_Att_designa_ett_API
