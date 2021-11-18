@@ -2,7 +2,7 @@
 
     include('../functions.php');
 
-    // vars: apt, tnt, own
+    // vars: apt, tnt, own 
     function loadData($var = 'db'){
         $data = loadJson('../database.json');
 
@@ -10,21 +10,9 @@
             return $data['apartments'];
         }
 
-        if ($var == 'tnt'){
-            return $data['tenants'];
-        }
-
-        if ( $var == 'own'){
-            return $data['owners'];
-        }
-        
+        inspect('hi');
         return $data;
     }
-
-    // om inga paramentrar, skicka alla
-    if (count( $_GET ) == 0){
-        sendJson( ['apartments' => loadData('apt')] );
-    } 
 
     if( isset($_GET['id']) ){       
 
@@ -61,7 +49,11 @@
         if($diff){
             sendJson(['message' => 'Not Found', 'apartments' => $entries], 404);
         } else {
-            sendJson(['apartments' => $entries]);
+            if( isset($_GET['limit']) ){
+                sendJson( ['apartments' => limitTheArray( $entries, $_GET['limit']) ] );
+            } else {
+                sendJson( ['apartments' => $entries] );
+            }
         }
 
     }
@@ -84,10 +76,20 @@
         if( $entries == NULL ){
             sendJson(['message' => 'Bad Request'], 400);
         } else { // else show results
-            sendJson(['apartments' => $entries]);
+            if( isset($_GET['limit']) ){
+                sendJson( ['apartments' => limitTheArray( $entries, $_GET['limit']) ] );
+            } else {
+                sendJson( ['apartments' => $entries] );
+            }
         }
     }
 
+    // annars skicka alla
+    if( isset($_GET['limit']) ){
+        sendJson( ['apartments' => limitTheArray( loadData('apt'), $_GET['limit']) ] );
+    } else {
+        sendJson( ['apartments' => loadData('apt')] );
+    }
 
 
 
