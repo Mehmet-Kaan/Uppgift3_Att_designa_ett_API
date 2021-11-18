@@ -12,10 +12,6 @@
     $modelApt = array_keys( reset( $apartments ) );
     $request = json_decode( file_get_contents("php://input"), true );
 
-    // inspect($modelApt);
-
-    // inspect($request);
-
     // which keys are supposed to exist but dont
     $missingKeys = count( array_diff( $modelApt, array_keys( $request )) );
 
@@ -56,5 +52,4 @@
     saveJson("../database.json", $data);
 
     sendJson($data['apartments']);
-
 ?>

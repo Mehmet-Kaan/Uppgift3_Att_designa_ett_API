@@ -1,5 +1,4 @@
 <?php
-
     include('../functions.php');
 
     // vars: apt, tnt, own 
@@ -10,7 +9,6 @@
             return $data['apartments'];
         }
 
-        inspect('hi');
         return $data;
     }
 
@@ -90,9 +88,4 @@
     } else {
         sendJson( ['apartments' => loadData('apt')] );
     }
-
-
-
-
-    // if()
 ?>
