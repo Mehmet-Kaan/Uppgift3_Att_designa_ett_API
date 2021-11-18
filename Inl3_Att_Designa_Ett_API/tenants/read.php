@@ -8,7 +8,6 @@
     if($method !== "GET"){
         sendJson(
             [
-                "code" => 1,
                 "message" => "Not allowed method!"
             ],
             405
@@ -45,9 +44,7 @@
         if($found == false){
             sendJson(
                 [
-                    "code" => 2,
-                    "error" => "Tenant with given id could not found",
-                    "message" => "Bad request"
+                    "message" => "Tenant with given id could not found"
                 ],
                 400
             );
@@ -91,9 +88,7 @@
         if($found == false){
             sendJson(
                 [
-                    "code" => 3,
-                    "error" => "Tenants with given ids could not found",
-                    "message" => "Bad request"
+                    "message" => "Tenants with given ids could not found"
                 ],
                 400
             );
@@ -108,24 +103,21 @@
         //Byter alla ids med ägarens namn som äger lägenheten för valda hyresgäster by given ids
         if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
             $includeId = $_GET["include"];
-            $tenantsByIdsWithOwnerOfApartmentsName = [];
+            $tenantsByIdsWithOwnersnameOfApartments = [];
         
+            //Loppar genom tenants för att 
             foreach($tenantsByIds as $tenantById){
                 foreach($apartments as $apartment){
                     if($tenantById["apartment"] == $apartment["id"]){
-                        foreach($owners as $owner){
-                            if($apartment["id"] == $owner["id"]){
-                                $tenantById["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                                $tenantsByIdsWithOwnerOfApartmentsName[] = $tenantById;                                }
-                        }
-                    }
+                        $tenantById["apartment"] = "{ownsBy : ".$apartment["owner"]."}";
+                        $tenantsByIdsWithOwnersnameOfApartments[] = $tenantById;                                }
                 }
             }
                         
         }
 
-        if(!empty($tenantsByIdsWithOwnerOfApartmentsName)){
-            sendJson($tenantsByIdsWithOwnerOfApartmentsName);
+        if(!empty($tenantsByIdsWithOwnersnameOfApartments)){
+            sendJson($tenantsByIdsWithOwnersnameOfApartments);
         }
 
         sendJson($tenantsByIds);
@@ -150,9 +142,7 @@
         if($found == false){
             sendJson(
                 [
-                    "code" => 5,
-                    "error" => "There is no tenant who lives in apartment with given id",
-                    "message" => "Bad request"
+                    "message" => "There is no tenant who lives in apartment with given id"
                 ],
                 400
             );
@@ -169,7 +159,7 @@
         sendJson($sameApartment);
     }
 
-    //Kontrollerar om en specifick antal av hyresgäster är förfrågat
+    //Kontrollerar om en specifikt antal av hyresgäster är förfrågat
     if(isset($_GET["limit"])){ 
         $limit = $_GET["limit"];
 
@@ -191,6 +181,7 @@
             
         }
 
+        //Kontrollerar om slicedTenantsWithOwnerOfApartmentsName är inte tom
         if(!empty($slicedTenantsWithOwnerOfApartmentsName)){
             sendJson($slicedTenantsWithOwnerOfApartmentsName);
         }
