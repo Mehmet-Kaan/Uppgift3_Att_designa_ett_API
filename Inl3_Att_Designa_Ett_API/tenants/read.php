@@ -1,18 +1,9 @@
 <?php
-    $method = $_SERVER["REQUEST_METHOD"];
-
     //Inkluderar funktioner 
     require_once "../functions.php";
 
     //Om metoden är inte GET, skickar error och http-koden 405
-    if($method !== "GET"){
-        sendJson(
-            [
-                "message" => "Not allowed method!"
-            ],
-            405
-        );
-    } 
+    checkMethod("GET");
 
     //hämtar alla entiteter
     $enteties = loadJson("../database.json");
