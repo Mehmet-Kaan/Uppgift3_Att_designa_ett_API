@@ -52,17 +52,12 @@
 
         ////Kontrollerar om include finns i förfrågan
         if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
-            $includeId = $_GET["include"];
             //Loopar genom ägaren för att lägga till apartment namn 
             foreach($apartments as $apartment){
                 if($apartment["id"] == $tenantByid["apartment"]){
-                    foreach($owners as $owner){
-                        if($apartment["id"] == $owner["id"]){
-                            $tenantByid["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                        }
+                        $tenantByid["apartment"] = "{ownsBy : ".$apartment["owner"]."}";
                     }
                 }
-            }
             sendJson($tenantByid);
         }
 
