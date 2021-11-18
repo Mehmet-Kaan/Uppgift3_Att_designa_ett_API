@@ -46,4 +46,8 @@ function saveJson($filename, $data) {
     
     return true;
 }
+
+function limitTheArray($array, $limit){
+    return array_slice($array, 0, $limit);
+}
 ?>
