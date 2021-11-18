@@ -16,16 +16,16 @@
     } 
 
     //hämtar alla entiteter
-    $entiteter = loadJson("../database.json");
+    $enteties = loadJson("../database.json");
 
     //Alla hyresgäster
-    $tenants = $entiteter["tenants"];
+    $tenants = $enteties["tenants"];
 
     //Alla lägenheter
-    $apartments = $entiteter["apartments"];
+    $apartments = $enteties["apartments"];
 
     //Alla ägare
-    $owners = $entiteter["owners"];
+    $owners = $enteties["owners"];
 
     //Kontrollerar om förfrågan är en hyresgäst?
     if(isset($_GET["id"])){
@@ -54,7 +54,7 @@
         }
 
         ////Kontrollerar om include finns i förfrågan
-        if(isset($_GET["include"])){
+        if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
             $includeId = $_GET["include"];
             //Loopar genom ägaren för att lägga till apartment namn 
             foreach($apartments as $apartment){
@@ -106,24 +106,22 @@
         }
 
         //Byter alla ids med ägarens namn som äger lägenheten för valda hyresgäster by given ids
-        if(isset($_GET["include"])){
+        if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
             $includeId = $_GET["include"];
             $tenantsByIdsWithOwnerOfApartmentsName = [];
-
-            if($_GET["include"] !== false){
-                foreach($tenantsByIds as $tenantById){
-                    foreach($apartments as $apartment){
-                        if($tenantById["apartment"] == $apartment["id"]){
-                            foreach($owners as $owner){
-                                if($apartment["id"] == $owner["id"]){
-                                    $tenantById["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                                    $tenantsByIdsWithOwnerOfApartmentsName[] = $tenantById;
-                                }
-                            }
+        
+            foreach($tenantsByIds as $tenantById){
+                foreach($apartments as $apartment){
+                    if($tenantById["apartment"] == $apartment["id"]){
+                        foreach($owners as $owner){
+                            if($apartment["id"] == $owner["id"]){
+                                $tenantById["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                                $tenantsByIdsWithOwnerOfApartmentsName[] = $tenantById;                                }
                         }
                     }
                 }
-            }            
+            }
+                        
         }
 
         if(!empty($tenantsByIdsWithOwnerOfApartmentsName)){
@@ -178,24 +176,19 @@
         $slicedTenants = array_slice($tenants, 0, $limit);
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
-        if(isset($_GET["include"])){
-            if($_GET["include"] !== false){
-                foreach($slicedTenants as $tenant){
-                    foreach($apartments as $apartment){
-                        if($apartment["id"] == $tenant["apartment"]){
-                            foreach($owners as $owner){
-                                if($owner["id"] == $apartment["id"]){
-                                    $tenant["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                                    $slicedTenantsWithOwnerOfApartmentsName[] = $tenant;
-                                }
-                            }
+        if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
+            foreach($slicedTenants as $tenant){
+                foreach($apartments as $apartment){
+                    if($apartment["id"] == $tenant["apartment"]){
+                        foreach($owners as $owner){
+                            if($owner["id"] == $apartment["id"]){
+                                $tenant["apartment"] = "{ownsBy : ".$owner["name"]."}";
+                                $slicedTenantsWithOwnerOfApartmentsName[] = $tenant;                                }
                         }
                     }
                 }
             }
-            else{
-                sendJson($slicedTenants);
-            }
+            
         }
 
         if(!empty($slicedTenantsWithOwnerOfApartmentsName)){
@@ -206,6 +199,6 @@
     }
 
     //Om det inte finns någon paramater, då skickas hela entiteter
-    sendJson($entiteter);
+    sendJson($enteties);
     
     ?>
