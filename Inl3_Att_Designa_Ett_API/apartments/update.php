@@ -1,21 +1,10 @@
 <?php
-/* Kunna redigera en entitet baserat på ett ID. 
-Ni ska kontrollera att dom fält som dom skickar med inte är tomma samt att ID:et dom specificerat faktiskt existerar. 
-Skulle något gå fel ska ni svara med något relevant meddelande så att användaren av ert API förstår vad som gått fel. */
 
 require_once "../functions.php";
 
-$method = $_SERVER["REQUEST_METHOD"];
+checkMethod("PATCH");
+checkConentType();
 
-// Kontrollerar att rätt metod används
-if ($method !== "PATCH") {
-    sendJson(
-        [
-            "message" => "This method is not allowed"
-        ],
-        405
-    );
-}
 
 // Hämtar datan som skickas med requesten
 $data = file_get_contents("php://input");
@@ -25,7 +14,6 @@ $requestData = json_decode($data, true);
 if (!isset($requestData["id"])) {
     sendJson(
         [
-            "code" => 1,
             "message" => "Missing `id` of request body"
         ],
         400
@@ -46,7 +34,6 @@ if (!isset($requestData["owner"]) && !isset($requestData["city"]) && !isset($req
 // Kontrollerar vilka nycklar som finns och att de inte är tomma
 if (isset($requestData["owner"]) && $requestData["owner"] === "" || 
     isset($requestData["city"]) && $requestData["city"] === "" || 
-    isset($requestData["street_name"]) && $requestData["street_name"] === "" || 
     isset($requestData["street_adress"]) && $requestData["street_adress"] === "" || 
     isset($requestData["apartment_color"]) && $requestData["apartment_color"] === "") {
         sendJson(
@@ -85,10 +72,6 @@ foreach ($apartments as $index => $apartment) {
         
         if (isset($requestData["street_adress"])) {
             $apartment["street_adress"] = $requestData["street_adress"];
-        }
-
-        if (isset($requestData["street_name"])) {
-            $apartment["street_name"] = $requestData["street_name"];
         }
 
         if (isset($requestData["apartment_color"])) {

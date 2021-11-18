@@ -4,17 +4,8 @@ Skulle något gå fel ska ni svara med något relevant meddelande så att använ
 
 require_once "../functions.php";
 
-$method = $_SERVER["REQUEST_METHOD"];
-
-// Kontrollera att rätt metod används
-if ($method !== "DELETE") {
-    sendJson(
-        [
-            "message" => "This method is not allowed"
-        ],
-        405
-    );
-}
+checkMethod("DELETE");
+checkConentType();
 
 // Hämtar databas och gör om till php
 $enteties = loadJson("../database.json");

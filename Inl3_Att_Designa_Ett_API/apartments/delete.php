@@ -2,21 +2,13 @@
 
 require_once "../functions.php";
 
-$method = $_SERVER["REQUEST_METHOD"];
-
-// Kontrollerar att rätt metod används
-if ($method !== "DELETE") {
-    sendJson(
-        [
-            "message" => "This method is not allowed"
-        ],
-        405
-    );
-}
+checkMethod("DELETE");
+checkConentType();
 
 // Hämtar databas och omvandlar till php
 $enteties = loadJson("../database.json");
 $apartments = $enteties["apartments"];
+$tenants = $enteties["tenants"];
 
 // Hämtar data som skickats med requesten
 $data = file_get_contents("php://input");
@@ -61,6 +53,9 @@ if ($found == false) {
         404
     );
 }
+
+// Hitta "tenant" som bor i lägenheten och ta bort den
+
 
 // Sparar ner den uppdaterade databasen
 $saved = saveJson("../database.json", $enteties);
