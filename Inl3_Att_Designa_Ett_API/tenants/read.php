@@ -101,7 +101,6 @@
 
         //Byter alla ids med ägarens namn som äger lägenheten för valda hyresgäster by given ids
         if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
-            $includeId = $_GET["include"];
             $tenantsByIdsWithOwnersnameOfApartments = [];
         
             //Loppar genom tenants för att 
@@ -112,7 +111,6 @@
                         $tenantsByIdsWithOwnersnameOfApartments[] = $tenantById;                                }
                 }
             }
-                        
         }
 
         if(!empty($tenantsByIdsWithOwnersnameOfApartments)){
@@ -155,25 +153,19 @@
         sendJson($sameApartment);
     }
 
-    // $slicedTenantsWithOwnerOfApartmentsName = [];
-
     //Kontrollerar om en specifikt antal av hyresgäster är förfrågat
     if(isset($_GET["limit"])){ 
-        $limit = $_GET["limit"];
-
-        $slicedTenants = array_slice($tenants, 0, $limit);
+        //Limiterar hyresgästerna
+        $slicedTenants = limitTheArray($tenants, $_GET["limit"]);
         $slicedTenantsWithOwnerOfApartmentsName = [];
         
+        //Kontrollerar om include finns och är inte false
         if(!empty($_GET["include"]) && $_GET["include"] !== "false"){
             foreach($slicedTenants as $tenant){
                 foreach($apartments as $apartment){
                     if($apartment["id"] == $tenant["apartment"]){
-                        foreach($owners as $owner){
-                            if($owner["id"] == $apartment["id"]){
-                                $tenant["apartment"] = "{ownsBy : ".$owner["name"]."}";
-                                $slicedTenantsWithOwnerOfApartmentsName[] = $tenant;                                }
-                        }
-                    }
+                        $tenant["apartment"] = "{ownsBy : ".$apartment["owner"]."}";
+                        $slicedTenantsWithOwnerOfApartmentsName[] = $tenant;                                }
                 }
             }
             
