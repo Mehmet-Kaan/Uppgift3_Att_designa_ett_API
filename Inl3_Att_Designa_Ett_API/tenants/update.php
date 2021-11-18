@@ -7,24 +7,10 @@ $contentType = $_SERVER["CONTENT_TYPE"];
 require_once "../functions.php";
 
 // Kontrollera att rätt content-type skickades med
-if ($contentType !== "application/json") {
-    sendJson(
-        [
-            "message" => "The API only accepts JSON!"
-        ],
-        400
-    );
-}
+checkConentType();
 
 // Kontrollera att rätt metod skickades med
-if ($method !== "PATCH") {
-    sendJson(
-        [
-            "message" => "This method is not allowed"
-        ],
-        405
-    );
-}
+checkMethod($method);
 
 // Hämtar databas och gör om till php
 $enteties = loadJson("../database.json");
