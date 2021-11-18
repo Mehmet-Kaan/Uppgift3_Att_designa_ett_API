@@ -96,8 +96,7 @@
 
         //kontrollerar om förfrågan innehåller "limit"
         if(isset($_GET["limit"])){ 
-            $limit = $_GET["limit"];
-            $tenantsByIds = array_slice($tenantsByIds, 0, $limit);
+            $tenantsByIds = limitTheArray($tenantsByIds, $_GET["limit"]);
         }
 
         //Byter alla ids med ägarens namn som äger lägenheten för valda hyresgäster by given ids
@@ -150,14 +149,13 @@
 
         //Kontrollerar om en limit är beviljad
         if(isset($_GET["limit"])){ 
-            $limit = $_GET["limit"];
-
-            $limitedApartments = array_slice($sameApartment, 0, $limit);
-            sendJson($limitedApartments);
+            sendJson(limitTheArray($sameApartment, $_GET["limit"]));
         }
         
         sendJson($sameApartment);
     }
+
+    // $slicedTenantsWithOwnerOfApartmentsName = [];
 
     //Kontrollerar om en specifikt antal av hyresgäster är förfrågat
     if(isset($_GET["limit"])){ 
