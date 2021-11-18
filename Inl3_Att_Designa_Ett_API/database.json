@@ -451,6 +451,27 @@
             "city": "Mpongwe",
             "street_adress": "2 Northview Hill",
             "apartment_color": "Mauv"
+        },
+        {
+            "id": 31,
+            "owner": 18,
+            "city": "Ambar",
+            "street_adress": "1 Susan Center",
+            "apartment_color": "Yellow"
+        },
+        {
+            "id": 32,
+            "owner": 18,
+            "city": "Ambar",
+            "street_adress": "1 Susan Center",
+            "apartment_color": "Yellow"
+        },
+        {
+            "id": 33,
+            "owner": 18,
+            "city": "Ambasr",
+            "street_adress": "1 Susan Center",
+            "apartment_color": "Yellow"
         }
     ]
 }
