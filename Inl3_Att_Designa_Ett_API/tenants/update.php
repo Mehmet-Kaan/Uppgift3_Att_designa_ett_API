@@ -29,16 +29,17 @@ if ($method !== "PATCH") {
 // Hämtar databas och gör om till php
 $enteties = loadJson("../database.json");
 $tenants = $enteties["tenants"];
+$apartments = $enteties["apartments"];
 
 // Hämtar data som skickats med requesten
 $data = file_get_contents("php://input");
 $requestData = json_decode($data, true);
 
 // Kontrollerar att "id" skickats med
-if (!isset($requestData["id"])) {
+if (!isset($requestData["id"], $requestData["apartment"])) {
     sendJson(
         [
-            "message" => "You're missing an `id` of request body"
+            "message" => "You're missing an `id` or `apartmentId` of request body"
         ],
         400
     );
