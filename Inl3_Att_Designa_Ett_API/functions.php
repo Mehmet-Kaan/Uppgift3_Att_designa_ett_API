@@ -17,4 +17,10 @@ function saveJson($filename, $data) {
     $json = json_encode($data, JSON_PRETTY_PRINT);
     file_put_contents($filename, $json);
 }
+
+function inspect($var){
+    echo "<pre>";
+    var_dump($var);
+    echo "</pre>";
+}
 ?>
