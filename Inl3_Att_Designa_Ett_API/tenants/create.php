@@ -31,6 +31,7 @@ if ($method !== "POST") {
 // Hämtar databas
 $enteties = loadJson("../database.json");
 $tenants = $enteties["tenants"];
+$apartments = $enteties["apartments"];
 
 // Hämtar data som skickats med requesten
 $data = file_get_contents("php://input");
@@ -54,6 +55,8 @@ $email =  $requestData["email"];
 $gender = $requestData["gender"];
 $apartmentId = $requestData["apartment"];
 
+$apartmentFound = false;
+
 $highestID = 0;
 
 // Loopar genom "tenants" för att hitta den högsta 'id'
@@ -64,6 +67,22 @@ foreach ($tenants as $tenant) {
 }
 
 $highestID += 1;
+
+foreach($apartments as $apartment){
+    if ($apartment["id"] == $apartmentId){
+        $apartmentFound = true;
+    };
+}
+
+if($apartmentFound == false){
+    sendJson(
+        [
+            "error" => "Apartment with that id doesn`t exist",
+            "message" => "Bad request!"
+        ],
+        400
+    );
+}
 
 $newTenant = [
     "id" => $highestID,
