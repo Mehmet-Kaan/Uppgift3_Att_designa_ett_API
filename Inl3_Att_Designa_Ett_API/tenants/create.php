@@ -9,9 +9,7 @@ require_once "../functions.php";
 if ($contentType !== "application/json") {
     sendJson(
         [
-            "code" => 7,
-            "error" => "The API only accepts JSON!",
-            "message" => "Bad request!"
+            "message" => "The API only accepts JSON!"
         ],
         400
     );
@@ -21,7 +19,6 @@ if ($contentType !== "application/json") {
 if ($method !== "POST") {
     sendJson(
         [
-            "code" => 8,
             "message" => "This method is not allowed!"
         ],
         405
@@ -41,9 +38,7 @@ $requestData = json_decode($data, true);
 if (!isset($requestData["first_name"], $requestData["last_name"], $requestData["email"], $requestData["gender"], $requestData["apartment"])) {
     sendJson(
         [
-            "code" => 9,
-            "error" => "You're missing `first name` or `last name` or `email` or `gender` or `apartment number` of request body!",
-            "message" => "Bad request!"
+            "message" => "You're missing `first name` or `last name` or `email` or `gender` or `apartment number` of request body!"
         ],
         400
     );
@@ -54,8 +49,6 @@ $lastName = $requestData["last_name"];
 $email =  $requestData["email"];
 $gender = $requestData["gender"];
 $apartmentId = $requestData["apartment"];
-
-$apartmentFound = false;
 
 $highestID = 0;
 
@@ -68,17 +61,20 @@ foreach ($tenants as $tenant) {
 
 $highestID += 1;
 
+$apartmentFound = false;
+
+//Loopar genom lägenheter för att kontrollera om lägenheten med given id finns
 foreach($apartments as $apartment){
     if ($apartment["id"] == $apartmentId){
         $apartmentFound = true;
     };
 }
 
+//Kontrollerar om lägenheten hittades
 if($apartmentFound == false){
     sendJson(
         [
-            "error" => "Apartment with that id doesn`t exist",
-            "message" => "Bad request!"
+            "message" => "Apartment with that id doesn`t exist"
         ],
         400
     );

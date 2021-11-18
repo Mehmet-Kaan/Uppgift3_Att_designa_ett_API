@@ -10,9 +10,7 @@ require_once "../functions.php";
 if ($contentType !== "application/json") {
     sendJson(
         [
-            "code" => 10,
-            "error" => "The API only accepts JSON!",
-            "message" => "Bad request!"
+            "message" => "The API only accepts JSON!"
         ],
         400
     );
@@ -22,7 +20,6 @@ if ($contentType !== "application/json") {
 if ($method !== "PATCH") {
     sendJson(
         [
-            "code" => 11,
             "message" => "This method is not allowed"
         ],
         405
@@ -41,7 +38,6 @@ $requestData = json_decode($data, true);
 if (!isset($requestData["id"])) {
     sendJson(
         [
-            "code" => 12,
             "message" => "You're missing an `id` of request body"
         ],
         400
@@ -57,6 +53,25 @@ $lastName = $requestData["last_name"];
 $email =  $requestData["email"];
 $gender = $requestData["gender"];
 $apartmentId = $requestData["apartment"];
+
+$apartmentFound = false;
+
+//Loopar genom lägenheter för att kontrollera om lägenheten med given id finns
+foreach($apartments as $apartment){
+    if ($apartment["id"] == $apartmentId){
+        $apartmentFound = true;
+    };
+}
+
+//Kontrollerar om lägenheten hittades
+if($apartmentFound == false){
+    sendJson(
+        [
+            "message" => "Apartment with that id doesn`t exist"
+        ],
+        400
+    );
+}
 
 // Hittar "tenant" som har 'id' som skickades med, och raderar ur arrayen
 foreach ($tenants as $index => $tenant) {
@@ -89,7 +104,6 @@ foreach ($tenants as $index => $tenant) {
 if ($found == false) {
     sendJson(
         [
-            "code" => 13,
             "message" => "Requested 'id' was not found"
         ],
         404
