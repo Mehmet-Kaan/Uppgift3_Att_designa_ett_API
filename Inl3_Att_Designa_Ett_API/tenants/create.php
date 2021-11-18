@@ -1,15 +1,12 @@
 <?php
-
-$method = $_SERVER["REQUEST_METHOD"];
-$contentType = $_SERVER["CONTENT_TYPE"];
-
+//Inkluderar funktioner 
 require_once "../functions.php";
 
 // Kontrollera att rätt content-type skickades med
 checkConentType();
 
 // Kontrollera att rätt metod skickades med
-checkMethod($method);
+checkMethod("POST");
 
 // Hämtar databas
 $enteties = loadJson("../database.json");
