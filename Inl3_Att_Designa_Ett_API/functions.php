@@ -6,7 +6,7 @@ function checkMethod($method) {
     if ($requestMethod !== $method) {
         sendJson(
             [
-                "message" => "This method is not allowed"
+                "message" => "This method is not allowed!"
             ],
             405
         );
