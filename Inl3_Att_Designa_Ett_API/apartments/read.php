@@ -73,7 +73,7 @@
         }
 
         // if trying to find color that does not exist
-        if( $entries == NULL ){
+        if( !isset($entries) ){
             sendJson(['message' => 'Bad Request'], 400);
         } else { // else show results
             if( isset($_GET['limit']) ){
